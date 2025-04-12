@@ -21,6 +21,19 @@ check out my knowledge ...
 <img alt="git" src="https://camo.githubusercontent.com/79536ab835520583d9f0eebc002614e4e53f0e17e3bbd6ff55a83ea47afe4420/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4769742d4630353033323f7374796c653d666c61742d737175617265266c6f676f3d676974266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/-Git-F05032?style=flat-square&amp;logo=git&amp;logoColor=white" style="max-width: 100%;">
 <img alt="MongoDB" src="https://camo.githubusercontent.com/1b4a6d82afc536fb0334bbadc855dd29dcfa6bf555f958994655ea14262cdb5d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4d6f6e676f44422d3133616135323f7374796c653d666c61742d737175617265266c6f676f3d6d6f6e676f6462266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/-MongoDB-13aa52?style=flat-square&amp;logo=mongodb&amp;logoColor=white" style="max-width: 100%;">
 <img alt="html5" src="https://camo.githubusercontent.com/c0f60c84bd23525a0f1e5972ff5052f878eb4104e88b347b7f0004d0e6ad8898/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d48544d4c352d4533344632363f7374796c653d666c61742d737175617265266c6f676f3d68746d6c35266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&amp;logo=html5&amp;logoColor=white" style="max-width: 100%;">
-<img alt="html5" src="https://camo.githubusercontent.com/c0f60c84bd23525a0f1e5972ff5052f878eb4104e88b347b7f0004d0e6ad8898/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d48544d4c352d4533344632363f7374796c653d666c61742d737175617265266c6f676f3d68746d6c35266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/-Django-E34F26?style=flat-square&amp;logo=Django&amp;logoColor=white" style="max-width: 100%;">
+<img alt="python" height="20px" width="75px" src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" style="max-width: 100%;">
+<img alt="django" height="20px" width="75px" src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green" style="max-width: 100%;">
+<img alt="drf" height="20px" width="75px" src="https://img.shields.io/badge/django%20rest-ff1709?style=for-the-badge&logo=django&logoColor=white" style="max-width: 100%;">
+<img alt="nginx" height="20px" width="75px" src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" style="max-width: 100%;">
+<img alt="postman" height="20px" width="75px" src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white" style="max-width: 100%;">
+<img alt="selenium" height="20px" width="75px" src="https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=Selenium&logoColor=white" style="max-width: 100%;">
+<img alt="swagger" height="20px" width="75px" src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" style="max-width: 100%;">
+<img alt="xampp" height="20px" width="75px" src="https://img.shields.io/badge/Xampp-F37623?style=for-the-badge&logo=xampp&logoColor=white" style="max-width: 100%;">
+<img alt="mysql" height="20px" width="75px" src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" style="max-width: 100%;">
+<img alt="postgres" height="20px" width="75px" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" style="max-width: 100%;">
+<img alt="rabitmq" height="20px" width="75px" src="https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white" style="max-width: 100%;">
+<img alt="redis" height="20px" width="75px" src="https://img.shields.io/badge/redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white" style="max-width: 100%;">
 
 </p>
+
+
