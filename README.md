@@ -1,5 +1,5 @@
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=300&size=40&duration=800&pause=555&color=4DF725&vCenter=true&width=435&lines=Hello+There+%F0%9F%91%8B;This+Is+Mostafa+EbrahimZadeh+...;Welcome+Here+...)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=300&size=40&duration=800&pause=555&color=4DF725&vCenter=true&width=435&lines=Hello+There+%F0%9F%91%8B;This+Is+MEZ+...;Welcome+Here+...)](https://git.io/typing-svg)
 
 
 <hr>
