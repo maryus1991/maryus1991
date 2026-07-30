@@ -194,7 +194,7 @@ There's always more to learn here, and that's most of the appeal.
 <div align="center">
 
 <!-- <img src="https://github-readme-stats.vercel.app/api?username=maryus1991&show_icons=true&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9&border_radius=6" width="48%"/> -->
-<img src="https://streak-stats.demolab.com/?user=maryus1991&hide_border=true&background=0D1117&stroke=0D1117&ring=58A6FF&fire=58A6FF&currStreakLabel=58A6FF&sideLabels=C9D1D9&currStreakNum=E6EDF3&sideNums=E6EDF3&dates=8B949E&border_radius=6" width="100%"/>
+<img src="stats.svg" width="100%"/>
 
 <!-- <br><br> -->
 
