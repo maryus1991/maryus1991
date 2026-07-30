@@ -1,5 +1,4 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,100:1E3A5F&height=150&section=header" width="100%"/>
-
+ 
 <div align="center">
  
 <img src="hero-card.svg" width="100%" alt="Portrait illustration"/>
@@ -120,31 +119,12 @@ There's always more to learn here, and that's most of the appeal.
 <!-- <h2 align="center">Technologies</h2> -->
 
 <br>
-<!-- 
+ 
 <div align="center">
+<img src="https://skillicons.dev/icons?i=python,django,fastapi,postgresql,redis,docker,kubernetes,nginx,git,linux,bsd" alt="Technology stack" />
 
-<img src="https://img.shields.io/badge/Python-0D1117?style=flat-square&logo=python&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Django-0D1117?style=flat-square&logo=django&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/FastAPI-0D1117?style=flat-square&logo=fastapi&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/PostgreSQL-0D1117?style=flat-square&logo=postgresql&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Redis-0D1117?style=flat-square&logo=redis&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Celery-0D1117?style=flat-square&logo=celery&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/RabbitMQ-0D1117?style=flat-square&logo=rabbitmq&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Docker-0D1117?style=flat-square&logo=docker&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Docker_Compose-0D1117?style=flat-square&logo=docker&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Nginx-0D1117?style=flat-square&logo=nginx&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Git-0D1117?style=flat-square&logo=git&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/GitHub-0D1117?style=flat-square&logo=github&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Linux-0D1117?style=flat-square&logo=linux&logoColor=58A6FF"/><img src="https://img.shields.io/badge/Linux-0D1117?style=flat-square&logo=linux&logoColor=58A6FF"/><img src="https://img.shields.io/badge/Linux-0D1117?style=flat-square&logo=linux&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/REST_API-0D1117?style=flat-square"/>
-<img src="https://img.shields.io/badge/WebSocket-0D1117?style=flat-square"/>
-<img src="https://img.shields.io/badge/Prometheus-0D1117?style=flat-square&logo=prometheus&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Grafana-0D1117?style=flat-square&logo=grafana&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Terraform-0D1117?style=flat-square&logo=terraform&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Ansible-0D1117?style=flat-square&logo=ansible&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Kubernetes-0D1117?style=flat-square&logo=kubernetes&logoColor=58A6FF"/>
 
-</div> -->
+</div>  
 
 <!-- <br>
 
@@ -285,7 +265,6 @@ There's always more to learn here, and that's most of the appeal.
 <a href="mailto:maryus19915123@gmail.com"><img src="https://img.shields.io/badge/-0D1117?style=for-the-badge&logo=gmail&logoColor=58A6FF"/></a>
 <!-- <a href="https://yourportfolio.dev"><img src="https://img.shields.io/badge/-0D1117?style=for-the-badge&logo=googlechrome&logoColor=58A6FF"/></a> -->
  
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E3A5F,100:0D1117&height=110&section=footer" width="100%"/>
 </div>
 
 
