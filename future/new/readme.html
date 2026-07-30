@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maryus Myary - Backend Engineer</title>
+    <link rel="stylesheet" href="styles/github.css">
+    <style>
+        /* Inline Fallback & Core System Styles */
+        :root {
+            --bg-main: #0a0f1c;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(56, 189, 248, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --status-green: #00ffcc;
+            --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.05) 0%, transparent 60%);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            overflow-x: hidden;
+        }
+
+        .dashboard-wrapper {
+            position: relative;
+            width: 1400px;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ABSOLUTE SVG LAYER */
+        .svg-background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* CENTER NODE (AVATAR) */
+        .center-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 20px 40px;
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.1), inset 0 0 40px rgba(79, 172, 254, 0.05);
+            width: 280px;
+            transition: all 0.4s ease;
+            animation: float-node 6s ease-in-out infinite;
+        }
+        
+        .center-node:hover {
+            box-shadow: 0 0 60px rgba(0, 242, 254, 0.3), inset 0 0 40px rgba(79, 172, 254, 0.2);
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        .center-node .avatar-wrapper {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .center-node .avatar-wrapper .avatar-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 242, 254, 0.3);
+            animation: rotate-ring 10s linear infinite;
+        }
+
+        .center-node .avatar-wrapper svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #152038;
+            object-fit: cover;
+        }
+
+        .center-node h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .center-node p {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .center-node .location {
+            font-size: 12px;
+            color: var(--accent-cyan);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .center-node .location svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--accent-cyan);
+        }
+
+        /* NODE CARDS (Services) */
+        .service-card {
+            position: absolute;
+            z-index: 5;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4), inset 0 0 20px rgba(56, 189, 248, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 20px rgba(0, 242, 254, 0.1);
+            z-index: 15;
+        }
+
+        .service-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .service-card .card-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .service-card .card-title-group .icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-muted);
+        }
+
+        .service-card .card-title-group h3 {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .service-card .card-title-group .sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .service-card .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #00ffcc;
+            background: rgba(0, 255, 204, 0.1);
+            padding: 4px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+        }
+        
+        .service-card .status-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00ffcc;
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        .service-card .version {
+            font-size: 10px;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .service-card .card-body {
+            flex: 1;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .service-card .card-body ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .service-card .card-body ul li {
+            background: rgba(255,255,255,0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .service-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .service-card .card-footer span {
+            color: #00ffcc;
+        }
+
+        /* CARD POSITIONS */
+        /* Top Left */
+        .card-profile { top: 10%; left: 5%; width: 200px; }
+        .card-system { top: 20%; left: 5%; width: 200px; }
+        .card-github { top: 65%; left: 5%; width: 220px; }
+        .card-projects { top: 80%; left: 5%; width: 200px; }
+        
+        /* Top Right */
+        .card-metrics { top: 10%; right: 5%; width: 220px; }
+        .card-database { top: 30%; right: 5%; width: 220px; }
+        .card-infrastructure { top: 50%; right: 5%; width: 220px; }
+        .card-monitoring { top: 70%; right: 5%; width: 220px; }
+        .card-contact { top: 85%; right: 5%; width: 200px; }
+        
+        /* Mid-Left / Mid-Right */
+        .card-languages { top: 45%; left: 20%; width: 180px; }
+        .card-devops { top: 70%; left: 20%; width: 180px; }
+
+        /* Top Center / Bottom Center */
+        .card-frameworks { top: 10%; left: 50%; transform: translateX(-50%); width: 200px; }
+        .card-blog { top: 85%; left: 45%; width: 200px; }
+        .card-stats { top: 85%; left: 65%; width: 220px; }
+
+        .card-terminal { bottom: 2%; left: 5%; width: 300px; font-family: var(--font-mono); }
+        .card-techstack { bottom: 2%; left: 50%; transform: translateX(-50%); width: 600px; text-align: center; }
+        .card-quote { bottom: 2%; right: 5%; width: 300px; }
+
+        /* GRAPHS AND MICRO INTERACTIONS */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            animation: width-anim 1s ease-out forwards;
+            width: 0%;
+        }
+
+        /* CHART SVG */
+        .chart-svg {
+            width: 100%;
+            height: 60px;
+            margin-top: 8px;
+        }
+        .chart-line {
+            fill: none;
+            stroke: url(#chartGradient);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: draw-chart 2s ease forwards;
+        }
+        .chart-point {
+            fill: #00f2fe;
+            filter: drop-shadow(0 0 5px #00f2fe);
+            opacity: 0;
+            animation: fade-in 0.5s ease 2s forwards;
+        }
+
+        /* TERMINAL & CODE */
+        .terminal-window {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0, 242, 254, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .terminal-line {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .terminal-prompt {
+            color: #00ffcc;
+        }
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #00ffcc;
+            animation: blink-cursor 1s step-end infinite;
+        }
+
+        /* KEYFRAMES ANIMATIONS */
+        @keyframes float-node {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-10px); }
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
+        }
+        @keyframes rotate-ring {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        @keyframes draw-chart {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes fade-in {
+            to { opacity: 1; }
+        }
+        @keyframes width-anim {
+            to { width: var(--target-width); }
+        }
+
+        /* RESPONSIVENESS */
+        @media (max-width: 1024px) {
+            .dashboard-wrapper { aspect-ratio: auto; flex-direction: column; height: auto; gap: 20px; padding: 20px; }
+            .svg-background-layer { display: none; }
+            .center-node { position: relative; top: unset; left: unset; transform: none; margin-bottom: 20px; width: 100%; }
+            .center-node:hover { transform: scale(1.02); }
+            .service-card { position: relative; top: unset; left: unset; transform: none; margin: 10px auto; width: 100% !important; max-width: 400px; }
+            .card-techstack { width: 100% !important; max-width: 100%; }
+            .card-techstack .tech-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+            body { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+
+    <!-- BACKGROUND SVG WITH CONNECTIONS -->
+    <svg class="svg-background-layer" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4facfe" stop-opacity="0.2"/>
+                <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#4facfe" stop-opacity="0.2"/>
+            </linearGradient>
+            <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#00f2fe"/>
+                <stop offset="100%" stop-color="#4facfe" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+
+        <!-- Background Grid -->
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+
+        <!-- Connection Lines from Center (X: 700, Y: 400) -->
+        <g filter="url(#glow)">
+            <path d="M 700 400 L 300 200" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 1100 200" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 300 400" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 1100 400" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 300 600" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 1100 600" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 700 200" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 700 600" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 200 700" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 900 700" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 1200 700" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 300 750" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 500 750" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M 700 400 L 700 750" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="10 5">
+                <animate attributeName="stroke-dashoffset" from="15" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+        </g>
+        
+        <!-- Flowing Particles -->
+        <circle r="3" fill="#00f2fe">
+            <animateMotion dur="4s" repeatCount="indefinite" path="M 700 400 L 300 200" />
+        </circle>
+        <circle r="3" fill="#00f2fe">
+            <animateMotion dur="4s" repeatCount="indefinite" path="M 700 400 L 1100 600" />
+        </circle>
+        <circle r="3" fill="#00f2fe">
+            <animateMotion dur="4s" repeatCount="indefinite" path="M 700 400 L 300 750" />
+        </circle>
+    </svg>
+
+    <!-- CENTRAL NODE (CORE SERVICE) -->
+    <div class="center-node">
+        <div class="avatar-wrapper">
+            <div class="avatar-ring"></div>
+            <!-- Embedded Portrait SVG -->
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="50" fill="#152038" />
+                <!-- Shirt -->
+                <path d="M 25 80 Q 50 90 75 80 L 80 100 L 20 100 Z" fill="#1a2536" />
+                <!-- Neck -->
+                <rect x="40" y="60" width="20" height="20" fill="#d4a373" />
+                <!-- Face Outline -->
+                <path d="M 35 45 Q 50 30 65 45 L 68 65 Q 50 85 32 65 Z" fill="#d4a373" />
+                <!-- Hair -->
+                <path d="M 32 45 Q 30 20 50 20 Q 70 20 68 45 Q 65 25 50 30 Q 35 25 32 45 Z" fill="#111827" />
+                <!-- Eyes -->
+                <path d="M 40 50 Q 45 48 50 50 Q 45 52 40 50 Z" fill="#111827" />
+                <path d="M 55 50 Q 60 48 65 50 Q 60 52 55 50 Z" fill="#111827" />
+                <!-- Eyebrows -->
+                <path d="M 40 46 L 50 44" stroke="#111827" stroke-width="2" fill="none" />
+                <path d="M 55 44 L 65 46" stroke="#111827" stroke-width="2" fill="none" />
+                <!-- Smile -->
+                <path d="M 45 60 Q 50 65 55 60" stroke="#111827" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+        <h1>MARYUS MYARY</h1>
+        <p>Backend Engineer</p>
+        <div class="location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            Earth
+        </div>
+    </div>
+
+    <!-- NODES / CARDS -->
+
+    <!-- Profile Card -->
+    <div class="service-card card-profile">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <h3>PROFILE</h3>
+                <span class="sub">Backend Engineer</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> Available</div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Name: Maryus Myary</li>
+                <li>Role: Backend Engineer</li>
+                <li>Location: Earth</li>
+                <li>Exp: Hands-on & Passionate</li>
+                <li>Focus: Scalable Systems</li>
+                <li>Website: maryus.dev</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- System Overview -->
+    <div class="service-card card-system">
+        <div class="card-header">
+            <div class="card-title-group">
+                <h3>SYSTEM OVERVIEW</h3>
+            </div>
+        </div>
+        <div class="card-body" style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div><strong>Services</strong><br><span style="color:white; font-size: 16px;">11</span></div>
+            <div><strong>Endpoints</strong><br><span style="color:white; font-size: 16px;">23</span></div>
+            <div><strong>Integrations</strong><br><span style="color:white; font-size: 16px;">17</span></div>
+            <div><strong>Uptime</strong><br><span style="color:white; font-size: 16px;">99.99%</span></div>
+            <div><strong>Response Time</strong><br><span style="color:white; font-size: 16px;">12ms</span></div>
+            <div><strong>Architecture</strong><br><span style="color:white; font-size: 12px;">Microservices</span></div>
+        </div>
+    </div>
+
+    <!-- Real-time Metrics -->
+    <div class="service-card card-metrics">
+        <div class="card-header">
+            <div class="card-title-group">
+                <h3>REAL-TIME METRICS</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <div>CPU Usage <span style="float:right; color:white;">23%</span>
+                <div class="progress-bar"><div class="progress-fill" style="--target-width: 23%;"></div></div>
+            </div>
+            <div>Memory Usage <span style="float:right; color:white;">41%</span>
+                <div class="progress-bar"><div class="progress-fill" style="--target-width: 41%;"></div></div>
+            </div>
+            <div>Network I/O <span style="float:right; color:white;">68%</span>
+                <div class="progress-bar"><div class="progress-fill" style="--target-width: 68%;"></div></div>
+            </div>
+            <div>Disk Usage <span style="float:right; color:white;">37%</span>
+                <div class="progress-bar"><div class="progress-fill" style="--target-width: 37%;"></div></div>
+            </div>
+            <div>Active Connections <span style="float:right; color:white;">152</span></div>
+        </div>
+    </div>
+
+    <!-- Languages Service -->
+    <div class="service-card card-languages">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12.89 1.45l8 16c.12.24.12.52 0 .76l-3.5 7c-.12.24-.36.39-.63.39H7.13c-.27 0-.51-.15-.63-.39l-3.5-7c-.12-.24-.12-.52 0-.76l8-16c.12-.24.36-.39.63-.39h3.74c.27 0 .51.15.63.39z"/></svg></div>
+                <h3>LANGUAGES SERVICE</h3>
+                <span class="sub">Programming Languages</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Python</li><li>JavaScript</li><li>TypeScript</li>
+                <li>Go</li><li>Bash</li><li>SQL</li><li>C++</li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Frameworks Service -->
+    <div class="service-card card-frameworks">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-7.5-5-2.5-5 2.5z"/></svg></div>
+                <h3>FRAMEWORKS SERVICE</h3>
+                <span class="sub">Backend Frameworks</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Django</li><li>FastAPI</li><li>DRF</li><li>Celery</li>
+                <li>PyTest</li><li>Channels</li><li>Graphene</li><li>OAuth</li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Database Service -->
+    <div class="service-card card-database">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 4.69 5 8v8c0 3.31 3.13 6 7 6s7-2.69 7-6V8c0-3.31-3.13-6-7-6zm0 2c2.21 0 4 1.01 4 2.25S14.21 8.5 12 8.5 8 7.49 8 6.25 9.79 4 12 4zm0 14c-3.31 0-6-2.01-6-4.5V10c0 2.49 2.69 4.5 6 4.5s6-2.01 6-4.5v3.5c0 2.49-2.69 4.5-6 4.5z"/></svg></div>
+                <h3>DATABASE SERVICE</h3>
+                <span class="sub">Data Storage</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>PostgreSQL</li><li>Redis</li><li>MongoDB</li>
+                <li>MySQL</li><li>SQLite</li><li>Elasticsearch</li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- DevOps Service -->
+    <div class="service-card card-devops">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></div>
+                <h3>DEVOPS SERVICE</h3>
+                <span class="sub">CI/CD & Automation</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Docker</li><li>GitHub Actions</li><li>Make</li><li>Nginx</li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Infrastructure Service -->
+    <div class="service-card card-infrastructure">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></div>
+                <h3>INFRASTRUCTURE SERVICE</h3>
+                <span class="sub">Infrastructure as Code</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Terraform</li><li>Ansible</li><li>Kubernetes</li>
+                <li>Helm</li><li>Linux</li><li>Shell</li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Monitoring Service -->
+    <div class="service-card card-monitoring">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div>
+                <h3>MONITORING SERVICE</h3>
+                <span class="sub">Monitoring & Observability</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Prometheus</li><li>Grafana</li><li>Alertmanager</li>
+                <li>cAdvisor</li><li>Uptime</li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- GitHub Activity Service -->
+    <div class="service-card card-github">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg></div>
+                <h3>GITHUB ACTIVITY SERVICE</h3>
+                <span class="sub">Real-time GitHub Analytics</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div><strong>683</strong> Contributions</div>
+            <svg width="100%" height="40" style="margin-top: 8px;">
+                <!-- Simulated Contribution Graph -->
+                <rect x="10" y="10" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="25" y="15" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="40" y="5" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="55" y="20" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="70" y="10" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="85" y="15" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="100" y="5" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="115" y="20" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="130" y="10" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="145" y="15" width="10" height="10" fill="#00ffcc" rx="2" />
+                <rect x="160" y="5" width="10" height="10" fill="#00ffcc" rx="2" />
+            </svg>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Projects Service -->
+    <div class="service-card card-projects">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4z"/></svg></div>
+                <h3>PROJECTS SERVICE</h3>
+                <span class="sub">Personal Projects</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul style="flex-direction: column; gap: 4px;">
+                <li style="display:flex; justify-content:space-between; width:100%;">ComplexEcommerce <span style="color:white;">128</span></li>
+                <li style="display:flex; justify-content:space-between; width:100%;">TowelStream <span style="color:white;">72</span></li>
+                <li style="display:flex; justify-content:space-between; width:100%;">Monitoring Platform <span style="color:white;">56</span></li>
+                <li style="display:flex; justify-content:space-between; width:100%;">Microservices Boilerplate <span style="color:white;">34</span></li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Blog Service -->
+    <div class="service-card card-blog">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+                <h3>BLOG SERVICE</h3>
+                <span class="sub">Technical Articles</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body">
+            <ul style="flex-direction: column; gap: 4px;">
+                <li style="display:flex; justify-content:space-between; width:100%;">Building Scalable APIs <span style="color:white; font-size:10px;">2d ago</span></li>
+                <li style="display:flex; justify-content:space-between; width:100%;">Async Tasks with Celery <span style="color:white; font-size:10px;">5d ago</span></li>
+                <li style="display:flex; justify-content:space-between; width:100%;">Microservices Best Practices <span style="color:white; font-size:10px;">12d ago</span></li>
+                <li style="display:flex; justify-content:space-between; width:100%;">Monitoring with Prometheus <span style="color:white; font-size:10px;">20d ago</span></li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Stats Service -->
+    <div class="service-card card-stats">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div>
+                <h3>STATS SERVICE</h3>
+                <span class="sub">Aggregated Statistics</span>
+            </div>
+            <div class="status-badge"><span class="dot"></span> HEALTHY</div>
+        </div>
+        <div class="card-body" style="display: flex; justify-content:space-between; align-items: center;">
+            <div>
+                <div><strong>Total Repos</strong><br><span style="color:white;">24</span></div>
+                <div><strong>Stars</strong><br><span style="color:white;">128</span></div>
+                <div><strong>Forks</strong><br><span style="color:white;">34</span></div>
+            </div>
+            <svg class="chart-svg" viewBox="0 0 100 60">
+                <defs>
+                    <linearGradient id="chartGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#00f2fe"/>
+                        <stop offset="100%" stop-color="#4facfe" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <polyline class="chart-line" points="0,50 20,40 40,55 60,30 80,45 100,20" />
+                <circle class="chart-point" cx="100" cy="20" r="3" />
+                <circle class="chart-point" cx="80" cy="45" r="3" />
+                <circle class="chart-point" cx="60" cy="30" r="3" />
+                <circle class="chart-point" cx="40" cy="55" r="3" />
+                <circle class="chart-point" cx="20" cy="40" r="3" />
+                <circle class="chart-point" cx="0" cy="50" r="3" />
+            </svg>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Contact Service -->
+    <div class="service-card card-contact">
+        <div class="card-header">
+            <div class="card-title-group">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+                <h3>CONTACT SERVICE</h3>
+                <span class="sub">Get in Touch</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul style="flex-direction: column; gap: 6px;">
+                <li><span style="color:white;">GitHub</span> github.com/maryusmyary</li>
+                <li><span style="color:white;">LinkedIn</span> linkedin.com/in/maryusmyary</li>
+                <li><span style="color:white;">Telegram</span> t.me/maryusmyary</li>
+                <li><span style="color:white;">Portfolio</span> maryus.dev</li>
+            </ul>
+        </div>
+        <div class="card-footer">v1.0.0 <span>ONLINE</span></div>
+    </div>
+
+    <!-- Terminal Card -->
+    <div class="service-card card-terminal" style="background: rgba(0,0,0,0.8); border: none;">
+        <div class="terminal-window">
+            <div class="terminal-line"><span class="terminal-prompt">$</span> whoami</div>
+            <div class="terminal-line" style="color: #00ffcc;">Backend Engineer</div>
+            <div class="terminal-line"><span class="terminal-prompt">$</span> cat passion.txt</div>
+            <div class="terminal-line" style="color: #4facfe;">Building scalable systems</div>
+            <div class="terminal-line" style="color: #4facfe;">Solving complex problems</div>
+            <div class="terminal-line" style="color: #4facfe;">Writing clean code</div>
+            <div class="terminal-line" style="color: #4facfe;">Learning every day</div>
+            <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cursor"></span></div>
+        </div>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="service-card card-techstack" style="background: transparent; border: none; backdrop-filter: none; box-shadow: none;">
+        <h3 style="color: var(--text-muted); margin-bottom: 16px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;">TECHNOLOGY STACK</h3>
+        <div class="tech-icons" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <!-- Python -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#3776AB" d="M24 4C15.6 4 12 5.6 12 10v6h12v2H12v4c0 4.4 3.6 8 8 8h2v4h-2c-5.5 0-10-4.5-10-10V10C2 4.6 9 2 24 2c14 0 22 2.6 22 8v6h-8v-2h6v-4c0-4.4-5.6-6-14-6zm-2 4c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/><path fill="#FFD343" d="M24 44c8.4 0 12-1.6 12-6v-6h-12v-2h12v-4c0-4.4-3.6-8-8-8h-2v-4h2c5.5 0 10 4.5 10 10v10c0 5.4-7 8-22 8-14 0-22-2.6-22-8v-6h8v2h-6v4c0 4.4 5.6 6 14 6zm2-4c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z"/></svg>
+            <!-- Django -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#092E20" d="M22 6h8v28h-8V6z"/><path fill="#092E20" d="M30 6h8v28h-8V6z"/><path fill="#092E20" d="M18 6h4v28h-4V6z"/><circle cx="34" cy="6" r="4" fill="#092E20"/><circle cx="26" cy="6" r="4" fill="#092E20"/><circle cx="18" cy="6" r="4" fill="#092E20"/></svg>
+            <!-- FastAPI -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#009688" d="M24 2C12 2 2 12 2 24s10 22 22 22 22-10 22-22S36 2 24 2z"/><path fill="#FFF" d="M26 10L15 26h8l-1 12 12-17h-8l2-11z"/></svg>
+            <!-- PostgreSQL -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#336791" d="M35 6C24 6 16 12 16 18v4h-2v4h4v12h4V26h4v-4h-4v-4c0-4 8-8 16-8s16 4 16 8v16h8V18c0-6-8-12-19-12z"/><circle cx="12" cy="24" r="4" fill="#336791"/><circle cx="36" cy="24" r="4" fill="#336791"/></svg>
+            <!-- Redis -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#D82C20" d="M24 2L4 12l20 10 20-10L24 2z"/><path fill="#D82C20" d="M4 12v10l20 10 20-10V12L24 22 4 12z"/><path fill="#D82C20" d="M4 22v10l20 10 20-10V22L24 32 4 22z"/><path fill="#FFF" d="M24 12l4 2-4 2-4-2 4-2z"/></svg>
+            <!-- Docker -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#2496ED" d="M46 20c-2-4-6-4-10-2-2-4-6-6-10-8v-4h-4v2c-4-2-8-4-12-6v30h40c2-6 0-10-4-12zm-40 2H4v2h2v-2zm0 4H4v2h2v-2zm0 4H4v2h2v-2zm0 4H4v2h2v-2zm0 4H4v2h2v-2zm0 4H4v2h2v-2z"/><circle cx="10" cy="22" r="2" fill="#FFF"/><circle cx="10" cy="26" r="2" fill="#FFF"/><circle cx="10" cy="30" r="2" fill="#FFF"/><circle cx="10" cy="34" r="2" fill="#FFF"/><circle cx="10" cy="38" r="2" fill="#FFF"/><circle cx="10" cy="42" r="2" fill="#FFF"/></svg>
+            <!-- Kubernetes -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#326CE5" d="M24 2L4 12v24l20 10 20-10V12L24 2z"/><path fill="#FFF" d="M24 6L6 15v18l18 9 18-9V15L24 6z"/><path fill="#326CE5" d="M24 12l-12 6v12l12 6 12-6V18l-12-6z"/></svg>
+            <!-- Nginx -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#269539" d="M24 2L2 18v12l22 16 22-16V18L24 2z"/><path fill="#FFF" d="M38 16v16l-14-8v-8l-8 4v8l-6-4V16l12-6 16 6z"/></svg>
+            <!-- Git -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#F05032" d="M40 22.5L24.5 4c-1-1-3-1-4 0L14 10l10 10 6-6 12 12L24 42 8 26 16 18l-6-6L2 20l20 20c1 1 3 1 4 0l16-16c1-1 1-3 0-4L40 22.5z"/></svg>
+            <!-- Linux -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><path fill="#FCC624" d="M24 2L6 12v24l18 10 18-10V12L24 2z"/><path fill="#000" d="M24 8l12 6v16l-12 6-12-6V14l12-6z"/></svg>
+        </div>
+    </div>
+
+    <!-- Quote Card -->
+    <div class="service-card card-quote" style="background: transparent; border: none; backdrop-filter: none; box-shadow: none; text-align: right;">
+        <div style="font-size: 24px; color: var(--text-muted); margin-bottom: 8px;">“</div>
+        <p style="font-size: 12px; color: var(--text-muted); font-style: italic; line-height: 1.5;">
+            Programs must be written for people to read, and only incidentally for machines to execute.
+        </p>
+        <p style="font-size: 12px; color: #00ffcc; margin-top: 8px;">— Harold Abelson</p>
+        <div style="font-size: 24px; color: var(--text-muted); text-align: right; margin-top: 8px;">”</div>
+    </div>
+
+</div>
+
+<script src="scripts/animation.js"></script>
+</body>
+</html>
