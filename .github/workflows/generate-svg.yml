@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      # - run: pip install -r requirements/requirements.txt
+      - run: pip install -r requirements/requirements.txt
 
       - run: python scripts/auto_svg_generate.py
 
