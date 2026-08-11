@@ -41,7 +41,7 @@ There's always more to learn here, and that's most of the appeal.
 <img src="https://img.shields.io/badge/Django-0D1117?style=flat-square&logo=django&logoColor=58A6FF"/>
 <img src="https://img.shields.io/badge/FastAPI-0D1117?style=flat-square&logo=fastapi&logoColor=58A6FF"/>
 <img src="https://img.shields.io/badge/Celery-0D1117?style=flat-square&logo=celery&logoColor=58A6FF"/>
-
+<img src="https://img.shields.io/badge/Nodejs-0D1117?style=flat-square&logo=celery&logoColor=58A6FF"/>
 </td>
 </tr>
 <tr>
