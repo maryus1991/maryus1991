@@ -32,7 +32,6 @@ There's always more to learn here, and that's most of the appeal.
 <td width="18%" ><b>Languages</b></td>
 <td style="border:none"> 
 <img src="https://img.shields.io/badge/Python-0D1117?style=flat-square&logo=python&logoColor=58A6FF"/>
-<img src="https://img.shields.io/badge/Bash-0D1117?style=flat-square&logo=gnubash&logoColor=58A6FF"/>
 </td>
 </tr>
 <tr>
@@ -65,6 +64,7 @@ There's always more to learn here, and that's most of the appeal.
 <td>
 <img src="https://img.shields.io/badge/Docker-0D1117?style=flat-square&logo=docker&logoColor=58A6FF"/>
 <img src="https://img.shields.io/badge/Docker_Compose-0D1117?style=flat-square&logo=docker&logoColor=58A6FF"/>
+<img src="https://img.shields.io/badge/Podman-0D1117?style=flat-square&logo=podman&logoColor=58A6FF"/>
 <!-- <img src="https://img.shields.io/badge/Kubernetes-0D1117?style=flat-square&logo=kubernetes&logoColor=58A6FF"/> -->
 <img src="https://img.shields.io/badge/GitHub_Actions-0D1117?style=flat-square&logo=githubactions&logoColor=58A6FF"/>
 </td>
